@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpException,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { ICreateCustomer, IUpdateCustomer } from './customers.interface';
 
@@ -7,8 +15,10 @@ export class CustomersController {
   constructor(private readonly customersService: CustomersService) {}
 
   @Get(':id')
-  getCustomersID(@Param('id') id: string): string {
-    return this.customersService.getID(id);
+  async getCustomersID(
+    @Param('id') id: string,
+  ): Promise<string | HttpException> {
+    return await this.customersService.getID(id);
   }
 
   @Put(':id')
