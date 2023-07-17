@@ -6,15 +6,18 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { ICreateCustomer, IUpdateCustomer } from './customers.interface';
+import { AuthGuard } from 'src/guard/auth.guard';
 
 @Controller('customers')
 export class CustomersController {
   constructor(private readonly customersService: CustomersService) {}
 
   @Get(':id')
+  @UseGuards(AuthGuard)
   async getCustomersID(
     @Param('id') id: string,
   ): Promise<string | HttpException> {
