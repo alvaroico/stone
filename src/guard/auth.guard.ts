@@ -20,8 +20,8 @@ export class AuthGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const authorization = context.switchToHttp().getRequest()
-      .headers.authorization;
+    const authorization = context.switchToHttp().getRequest().headers
+      .authorization as string;
 
     if (!authorization)
       throw new HttpException('Não autorizado', HttpStatus.UNAUTHORIZED);
@@ -30,7 +30,8 @@ export class AuthGuard implements CanActivate {
 
     if (!request)
       throw new HttpException('SSO Indisponível', HttpStatus.BAD_GATEWAY);
-    if (request.exp < Date.now())
+
+    if (request.exp * 1000 < Date.now())
       throw new HttpException('Não autorizado', HttpStatus.UNAUTHORIZED);
     return true;
   }
