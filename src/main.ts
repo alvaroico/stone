@@ -9,6 +9,7 @@ async function bootstrap() {
     .setTitle('Stone API')
     .setDescription('Desafio para Backend Developer NodeJS Customer API')
     .setVersion('0.0.1')
+    .addBearerAuth()
     .addTag('Stone')
     .build();
   const document = SwaggerModule.createDocument(app, config);

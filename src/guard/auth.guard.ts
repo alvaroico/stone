@@ -12,7 +12,7 @@ import { ITokenJWT } from './auth.guard.interface';
 export class AuthGuard implements CanActivate {
   constructor(private readonly jwtService: JwtService) {}
 
-  decodeToken(token: string): any {
+  private decodeToken(token: string): any {
     return this.jwtService.decode(token.replace('Bearer ', ''));
   }
 
@@ -28,8 +28,11 @@ export class AuthGuard implements CanActivate {
     if (!request)
       throw new HttpException('SSO Indisponível', HttpStatus.BAD_GATEWAY);
 
-    if (request.exp * 1000 < Date.now())
+    if (request.exp * 1000 <= Date.now())
       throw new HttpException('Não autorizado', HttpStatus.UNAUTHORIZED);
-    return true;
+
+    if (request.exp * 1000 > Date.now()) return true;
+
+    return false;
   }
 }
