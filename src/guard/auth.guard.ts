@@ -6,7 +6,6 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Observable } from 'rxjs';
 import { ITokenJWT } from './auth.guard.interface';
 
 @Injectable()
@@ -17,9 +16,7 @@ export class AuthGuard implements CanActivate {
     return this.jwtService.decode(token.replace('Bearer ', ''));
   }
 
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  canActivate(context: ExecutionContext): boolean | Promise<boolean> {
     const authorization = context.switchToHttp().getRequest().headers
       .authorization as string;
 

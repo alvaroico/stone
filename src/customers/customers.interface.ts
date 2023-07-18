@@ -1,9 +1,10 @@
 export interface ICreateCustomer {
+  id?: string;
   document: string;
   name: string;
 }
 
-export interface IUpdateCustomer {
+export interface IGetUpdateCustomer {
   id: string;
   document: string;
   name: string;
