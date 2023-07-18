@@ -20,15 +20,18 @@ Se quiser utilizar uma interface gráfica para visualizar do dados pode baixa o 
 
 ## Iniciando Produtivo com docker
 
+* Não esquecer de configurar o arquivo .env para a variável ambiente do IP do redis
+![env](anexos/env.png)
+
 ```bash
 # Efetuando o build do código fonte com redis rodando no Host com Redis
-$ docker build --network="host" -t alvaroico/stone .
+$ docker build -t alvaroico/stone .
 
 # Rodando o build e expondo a porta padrão
 $ docker run -p 3000:3000 -d alvaroico/stone
 ```
 
-<a href="http://localhost:3000/api">Pagina do Swagger API<a>
+## <a href="http://localhost:3000/api">Pagina do Swagger API<a>
 
 ![Docker Build](anexos/Build.gif)
 
