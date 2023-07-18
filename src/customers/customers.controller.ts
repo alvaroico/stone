@@ -31,10 +31,10 @@ export class CustomersController {
   }
 
   @Put(':id')
-  putCustomersID(
+  async putCustomersID(
     @Param('id') id: string,
     @Body(new ValidationPipe()) updateCustomer: UpdateCustomerDto,
   ): Promise<IGetUpdateCustomer> {
-    return this.customersService.updateCustomer(id, updateCustomer);
+    return await this.customersService.updateCustomer(id, updateCustomer);
   }
 }
