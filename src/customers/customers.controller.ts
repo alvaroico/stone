@@ -12,7 +12,7 @@ import {
 import { CustomersService } from './customers.service';
 import { IGetUpdateCustomer } from './customers.interface';
 import { AuthGuard } from 'src/guard/auth.guard';
-import { CreateCustomerDto } from './customers.dto';
+import { CreateCustomerDto, UpdateCustomerDto } from './customers.dto';
 
 @Controller('customers')
 @UseGuards(AuthGuard)
@@ -20,9 +20,7 @@ export class CustomersController {
   constructor(private readonly customersService: CustomersService) {}
 
   @Get(':id')
-  async getCustomersID(
-    @Param('id') id: string,
-  ): Promise<string | HttpException> {
+  async getCustomersID(@Param('id') id: string): Promise<IGetUpdateCustomer> {
     return await this.customersService.getID(id);
   }
 
@@ -36,8 +34,8 @@ export class CustomersController {
   @Put(':id')
   putCustomersID(
     @Param('id') id: string,
-    @Body() updateCustomer: IGetUpdateCustomer,
-  ): any {
+    @Body(new ValidationPipe()) updateCustomer: UpdateCustomerDto,
+  ): Promise<IGetUpdateCustomer> {
     return this.customersService.updateCustomer(id, updateCustomer);
   }
 }
