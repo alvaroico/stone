@@ -1,47 +1,10 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { v4 as UUIDv4 } from 'uuid';
 import { ICreateCustomer, IGetUpdateCustomer } from './customers.interface';
-import { redis } from 'src/services/redis.db';
+import { CustomersRedisService } from 'src/services/customers.redis.service';
 
 @Injectable()
-export class CustomersService {
-  private async getCustomer(id: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      redis.get(`customer:${id}`, (err, result) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(result);
-      });
-    });
-  }
-
-  private async setCustomer(customer: ICreateCustomer): Promise<string> {
-    return new Promise((resolve, reject) => {
-      redis.set(
-        `customer:${customer.id}`,
-        JSON.stringify(customer),
-        (err, result) => {
-          if (err) {
-            reject(err);
-          }
-          resolve(result);
-        },
-      );
-    });
-  }
-
-  private async existsCustomer(id: string): Promise<number> {
-    return new Promise((resolve, reject) => {
-      redis.exists(`customer:${id}`, (err, result) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(result);
-      });
-    });
-  }
-
+export class CustomersService extends CustomersRedisService {
   async getID(id: string): Promise<IGetUpdateCustomer> {
     if ((await this.existsCustomer(id)) === 0) {
       throw new HttpException('Cliente inexistente', HttpStatus.NOT_FOUND);
