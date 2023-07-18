@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ICreateCustomer } from 'src/customers/customers.interface';
+import { ICreateCustomer } from '../customers/customers.interface';
 import { redis } from './redis.db';
 
 @Injectable()

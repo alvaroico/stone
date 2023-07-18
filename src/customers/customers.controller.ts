@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  HttpException,
   Param,
   Post,
   Put,
@@ -11,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { IGetUpdateCustomer } from './customers.interface';
-import { AuthGuard } from 'src/guard/auth.guard';
+import { AuthGuard } from '../guard/auth.guard';
 import { CreateCustomerDto, UpdateCustomerDto } from './customers.dto';
 
 @Controller('customers')

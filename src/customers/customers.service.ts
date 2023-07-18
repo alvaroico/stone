@@ -1,7 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { v4 as UUIDv4 } from 'uuid';
 import { ICreateCustomer, IGetUpdateCustomer } from './customers.interface';
-import { CustomersRedisService } from 'src/services/customers.redis.service';
+import { CustomersRedisService } from '../services/customers.redis.service';
 
 @Injectable()
 export class CustomersService extends CustomersRedisService {
